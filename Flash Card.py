@@ -22,35 +22,11 @@ import random
 # Create flashcard randomization
 def math_random():
 	#Generate a random number and call the image for that number. The name of the image is same as the number
-	global num_1
-	global num_2
-	num_1 = randint(1, 10)
-	num_2 = randint(1, 10)
-
-	global add_image1
-	global add_image2
-	card1 = "flashcard/" + str(num_1) + ".jpg"
-	card2 = "flashcard/" + str(num_2) + ".jpg"
-	add_image1 = ImageTk.PhotoImage(Image.open(card1))
-	add_image2 = ImageTk.PhotoImage(Image.open(card2))
-
-	# Put flashcard images on the screen
-	add_1.config(image=add_image1)
-	add_2.config(image=add_image2)
+	
 
 # Create addition answer function
 def answer_add():
-	answer = num_1 + num_2
-	if int(add_answer.get()) == answer:
-		response = "Correct! " + str(num_1) + " + " + str(num_2) + " = " + str(answer)
-	else:
-		response = "Wrong! " + str(num_1) + " + " + str(num_2) + " = " + str(answer) + " Not " + add_answer.get()
-
-	answer_message.config(text=response)
-	add_answer.delete(0, 'end')
-	# Math_random() function is called this function just update the cards and numbers. But why do we need this function since in the add() functino we are initializing the cards and numbers. We need this function because as add function is only called one time and of we want to update the cards we need to again call the add() function or build a new function that updates the cards.
-	# So why we build a new function see - in the add function we need to initiale the frames and entry boxes that will make our code slow.
-	math_random()
+	
 
 
 
@@ -110,17 +86,7 @@ def add():
 # Create Radomizing country function
 def random_country():
 	#Create a list of country names
-	global our_countries
-	our_countries = open("filenames.txt").read().splitlines()
-	#Generate a random number
-	global rando
-	rando = randint(0, len(our_countries)-1)
-	country = "flags/" + our_countries[rando]
-	print(country)
-	#Create our country Images
-	global country_image
-	country_image = ImageTk.PhotoImage(Image.open(country))
-	show_country.config(image=country_image, bg="white")
+	
 
 
 
@@ -130,36 +96,22 @@ def random_country():
 def country_answer():
 	answer = answer_input.get().title()
 	# We need to convert the input to this format as our name of the falgs are in this format.
-	answer = "Flag of " + answer + ".gif"
-	print(answer)
+	
 	# Determine if our answer is right or wrong!
-	if answer == our_countries[rando]:
-		response = "Correct! " + answer.split('.')[0]
-	else:
-		response = "Incorrect! " + our_countries[rando].split()[-1].split('.')[0]
-
-	answer_label.config(text=response)
+	
 
 	#Clear the entry box
-	answer_input.delete(0, 'end')
-
-	random_country()
+	
 
 # Create country Flashcard Function
 def countries():
 	# Hide previous frames
-	hide_all_frames()
-	country_frame.pack(fill="both", expand=1)
-	# Show_country label contains flag for the country
-	global show_country
-	show_country = Label(country_frame)
-	show_country.pack(pady=15)
-	random_country()
+	
+	# Show_country label coglobal show_country
+	
 
 	# Create answer input box
-	global answer_input
-	answer_input = Entry(country_frame, font=("Helvetica", 18), bd=2)
-	answer_input.pack(pady=15)
+	
 
 
 	# Create Button To Randomize country Images
@@ -179,12 +131,7 @@ def countries():
 
 # Create country capital answers
 def country_capital_answer():
-	if capital_radio.get() == our_country_capitals[answer]:
-		response = "Correct! " + our_country_capitals[answer].title() + " is the capital of " + answer.title()
-	else:
-		response = "Incorrect! " + our_country_capitals[answer].title() + " is the capital of " + answer.title()
-
-	answer_label_capitals.config(text=response)
+	
 
 
 # Create country Capital Flashcard Function
@@ -214,15 +161,7 @@ def country_capitals():
 	global answer 
 
 	# Generate our three random capitals and if last element is remaining we need to store the country name as that would be our answer.
-	while count < 4:
-		rando = randint(0, len(our_countries)-1)
-		# If first selection, make it our answer
-		if count == 1:
-			answer = our_countries[rando].split('-')[0].strip()
-			global country_image
-			country = "flags/"+ "Flag of " + our_countries[rando].split('-')[0].strip() + ".gif"
-			country_image = ImageTk.PhotoImage(Image.open(country))
-			show_country.config(image=country_image)
+	
 
 		# Add our first selection to a new list
 		answer_list.append(our_countries[rando])
@@ -241,10 +180,7 @@ def country_capitals():
 	global capital_radio
 	capital_radio = StringVar()
 	capital_radio.set(our_country_capitals[answer_list[0]])
-	capital_radio_butto1 = Radiobutton(country_capitals_frame, text=our_country_capitals[answer_list[0]].title(), variable=capital_radio, value=our_country_capitals[answer_list[0]]).pack()
-	capital_radio_butto2 = Radiobutton(country_capitals_frame, text=our_country_capitals[answer_list[1]].title(), variable=capital_radio, value=our_country_capitals[answer_list[1]]).pack()
-	capital_radio_butto3 = Radiobutton(country_capitals_frame, text=our_country_capitals[answer_list[2]].title(), variable=capital_radio, value=our_country_capitals[answer_list[2]]).pack()
-
+	
 	# Add A Pass Button
 	pass_button = Button(country_capitals_frame, text="Pass", command=country_capitals)
 	pass_button.pack(pady=15)
@@ -281,16 +217,10 @@ root.title('Flashcards!')
 root.geometry("800x600")
 
 # Create our menu
-my_menu = Menu(root)
-root.config(menu=my_menu)
+
 
 # Create Geography menu items
-countries_menu = Menu(my_menu)
-my_menu.add_cascade(label="Geography", menu=countries_menu)
-countries_menu.add_command(label="Countries", command=countries)
-countries_menu.add_command(label="Country Capitals", command=country_capitals)
-countries_menu.add_separator()
-countries_menu.add_command(label="Exit", command=root.quit)
+
 
 # Math Flashcard Menu
 math_menu = Menu(my_menu)
